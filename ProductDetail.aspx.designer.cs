@@ -7,164 +7,155 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TansOrganicHarvest.Account
+namespace TansOrganicHarvest
 {
 
 
-    public partial class Register
+    public partial class ProductDetail
     {
 
         /// <summary>
-        /// pnlError control.
+        /// litBreadcrumb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlError;
+        protected global::System.Web.UI.WebControls.Literal litBreadcrumb;
 
         /// <summary>
-        /// litError control.
+        /// pnlNotFound control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litError;
+        protected global::System.Web.UI.WebControls.Panel pnlNotFound;
 
         /// <summary>
-        /// pnlSuccess control.
+        /// pnlProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSuccess;
+        protected global::System.Web.UI.WebControls.Panel pnlProduct;
 
         /// <summary>
-        /// litSuccess control.
+        /// imgProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSuccess;
+        protected global::System.Web.UI.WebControls.Image imgProduct;
 
         /// <summary>
-        /// txtFullName control.
+        /// litCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFullName;
+        protected global::System.Web.UI.WebControls.Literal litCategory;
 
         /// <summary>
-        /// rfvFullName control.
+        /// pnlFeaturedBadge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFullName;
+        protected global::System.Web.UI.WebControls.Panel pnlFeaturedBadge;
 
         /// <summary>
-        /// txtEmail control.
+        /// litName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.Literal litName;
 
         /// <summary>
-        /// rfvEmail control.
+        /// litPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        protected global::System.Web.UI.WebControls.Literal litPrice;
 
         /// <summary>
-        /// revEmail control.
+        /// litUnit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+        protected global::System.Web.UI.WebControls.Literal litUnit;
 
         /// <summary>
-        /// txtPhone control.
+        /// litDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPhone;
+        protected global::System.Web.UI.WebControls.Literal litDescription;
 
         /// <summary>
-        /// txtPassword control.
+        /// pnlInStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.WebControls.Panel pnlInStock;
 
         /// <summary>
-        /// rfvPassword control.
+        /// litStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
+        protected global::System.Web.UI.WebControls.Literal litStock;
 
         /// <summary>
-        /// revPassword control.
+        /// pnlOutOfStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPassword;
+        protected global::System.Web.UI.WebControls.Panel pnlOutOfStock;
 
         /// <summary>
-        /// txtConfirmPassword control.
+        /// lvCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
+        protected global::System.Web.UI.WebControls.LoginView lvCart;
 
         /// <summary>
-        /// rfvConfirm control.
+        /// pnlRelated control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirm;
+        protected global::System.Web.UI.WebControls.Panel pnlRelated;
 
         /// <summary>
-        /// cvPassword control.
+        /// rptRelated control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvPassword;
-
-        /// <summary>
-        /// btnRegister control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegister;
+        protected global::System.Web.UI.WebControls.Repeater rptRelated;
     }
 }

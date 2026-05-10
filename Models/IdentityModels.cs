@@ -30,7 +30,7 @@ namespace TansOrganicHarvest.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        : base("TansDBContext", throwIfV1Schema: false)  // ← change this
         {
         }
 

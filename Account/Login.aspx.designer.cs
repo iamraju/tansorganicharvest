@@ -7,72 +7,101 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TansOrganicHarvest.Account {
-    
-    
-    public partial class Login {
-        
+namespace TansOrganicHarvest.Account
+{
+
+
+    public partial class Login
+    {
+
         /// <summary>
-        /// ErrorMessage control.
+        /// pnlError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ErrorMessage;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlError;
+
         /// <summary>
-        /// FailureText control.
+        /// litError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal FailureText;
-        
+        protected global::System.Web.UI.WebControls.Literal litError;
+
         /// <summary>
-        /// Email control.
+        /// pnlSuccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Email;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlSuccess;
+
         /// <summary>
-        /// Password control.
+        /// litSuccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Password;
-        
+        protected global::System.Web.UI.WebControls.Literal litSuccess;
+
         /// <summary>
-        /// RememberMe control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RememberMe;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
         /// <summary>
-        /// RegisterHyperLink control.
+        /// rfvEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink RegisterHyperLink;
-        
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+
         /// <summary>
-        /// OpenAuthLogin control.
+        /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::TansOrganicHarvest.Account.OpenAuthProviders OpenAuthLogin;
+        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+
+        /// <summary>
+        /// rfvPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
+
+        /// <summary>
+        /// chkRemember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkRemember;
+
+        /// <summary>
+        /// btnLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLogin;
     }
 }

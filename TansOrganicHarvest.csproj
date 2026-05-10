@@ -151,6 +151,7 @@
     <Content Include="Account\Forgot.aspx" />
     <Content Include="Account\Lockout.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Logout.aspx" />
     <Content Include="Account\Manage.aspx" />
     <Content Include="Account\ManageLogins.aspx" />
     <Content Include="Account\ManagePassword.aspx" />
@@ -165,6 +166,8 @@
     <Content Include="Admin\CategoryForm.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\AdminLogin.aspx" />
+    <Content Include="Admin\ProduceBoxes.aspx" />
+    <Content Include="Admin\ProduceBoxForm.aspx" />
     <Content Include="Admin\ProductForm.aspx" />
     <Content Include="Admin\Products.aspx" />
     <Content Include="Admin\TestDB.aspx" />
@@ -187,10 +190,15 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\tailwind.css" />
     <Content Include="Controls\NavigationMenu.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Members\Cart.aspx" />
+    <Content Include="Members\Checkout.aspx" />
+    <Content Include="Members\OrderConfirmation.aspx" />
+    <Content Include="ProductDetail.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -222,6 +230,7 @@
     <Content Include="Account\Web.config" />
     <Content Include="Admin\Masters\AdminMaster.master" />
     <Content Include="Admin\Web.config" />
+    <Content Include="Members\Web.config" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -291,6 +300,13 @@
     </Compile>
     <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Manage.aspx.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
@@ -368,6 +384,20 @@
     </Compile>
     <Compile Include="Admin\CategoryForm.aspx.designer.cs">
       <DependentUpon>CategoryForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProduceBoxes.aspx.cs">
+      <DependentUpon>ProduceBoxes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProduceBoxes.aspx.designer.cs">
+      <DependentUpon>ProduceBoxes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProduceBoxForm.aspx.cs">
+      <DependentUpon>ProduceBoxForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProduceBoxForm.aspx.designer.cs">
+      <DependentUpon>ProduceBoxForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ProductForm.aspx.cs">
       <DependentUpon>ProductForm.aspx</DependentUpon>
@@ -456,7 +486,35 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Members\Cart.aspx.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Cart.aspx.designer.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Checkout.aspx.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Checkout.aspx.designer.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\OrderConfirmation.aspx.cs">
+      <DependentUpon>OrderConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\OrderConfirmation.aspx.designer.cs">
+      <DependentUpon>OrderConfirmation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ProductDetail.aspx.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductDetail.aspx.designer.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop.aspx.cs">
       <DependentUpon>Shop.aspx</DependentUpon>
@@ -492,7 +550,6 @@
     <Folder Include="Images\banners\" />
     <Folder Include="Images\categories\" />
     <Folder Include="Images\products\" />
-    <Folder Include="Members\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,3 +1,21 @@
+-- ============================================
+-- Verify CustomerProfiles has all columns we need
+--IF NOT EXISTS (
+--    SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS 
+--    WHERE TABLE_NAME = 'CustomerProfiles' AND COLUMN_NAME = 'UserId'
+--)
+--BEGIN
+--    ALTER TABLE CustomerProfiles ADD UserId NVARCHAR(128) NOT NULL DEFAULT '';
+--END
+-- Add Contents column if not exists
+-- ============================================
+--IF NOT EXISTS (
+--    SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS 
+--    WHERE TABLE_NAME = 'ProduceBoxes' AND COLUMN_NAME = 'Contents'
+--)
+--BEGIN
+--    ALTER TABLE ProduceBoxes ADD Contents NVARCHAR(2000);
+--END
 -- =============================================
 -- SEED DATA
 -- =============================================
