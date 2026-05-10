@@ -1,0 +1,230 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" 
+    CodeBehind="AdminMaster.master.cs" 
+    Inherits="TansOrganicHarvest.Admin.Masters.AdminMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — Tan's Organic Harvest</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary:  { DEFAULT: '#2d6a4f', light: '#52b788', dark: '#1b4332' },
+                        accent:   '#f4a261',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body class="bg-gray-100 font-sans">
+<form id="AdminForm" runat="server">
+
+<!-- ── TOP BAR ───────────────────────────────────────────── -->
+<header class="bg-[#2d6a4f] text-white h-16 flex items-center justify-between px-6 
+               fixed top-0 left-0 right-0 z-50 shadow-md">
+
+    <!-- Logo / Brand -->
+    <div class="flex items-center gap-3">
+        <span class="text-2xl">🌿</span>
+        <span class="font-bold text-lg tracking-wide">Tan's Organic Harvest</span>
+        <span class="text-xs bg-white/20 rounded px-2 py-0.5 ml-2">Admin Panel</span>
+    </div>
+
+    <!-- Right side: user dropdown -->
+    <div class="relative" id="userMenuWrapper">
+        <button type="button" onclick="toggleUserMenu()"
+                class="flex items-center gap-2 hover:bg-white/10 rounded-lg px-3 py-2 
+                       transition-colors">
+            <div class="w-8 h-8 rounded-full bg-[#52b788] flex items-center 
+                        justify-center font-bold text-sm">
+                <!-- Shows first letter of admin name -->
+                <asp:Literal ID="litAdminInitial" runat="server" />
+            </div>
+            <span class="text-sm font-medium">
+                <asp:Literal ID="litAdminName" runat="server" />
+            </span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div id="userMenu"
+             class="hidden absolute right-0 top-12 bg-white text-gray-700 rounded-xl 
+                    shadow-xl w-48 py-2 border border-gray-100 z-50">
+            <a href="/Admin/Profile.aspx"
+               class="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 text-sm">
+                <span>👤</span> My Profile
+            </a>
+            <a href="/Admin/ChangePassword.aspx"
+               class="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 text-sm">
+                <span>🔑</span> Change Password
+            </a>
+            <hr class="my-1 border-gray-100" />
+            <asp:LinkButton ID="btnLogout" runat="server"
+                OnClick="btnLogout_Click"
+                CssClass="flex items-center gap-2 px-4 py-2 hover:bg-red-50 
+                          text-red-600 text-sm w-full text-left">
+                <span>🚪</span> Logout
+            </asp:LinkButton>
+        </div>
+    </div>
+
+</header>
+
+<!-- ── LAYOUT WRAPPER ────────────────────────────────────── -->
+<div class="flex pt-16 min-h-screen">
+
+    <!-- ── LEFT SIDEBAR NAV ──────────────────────────────── -->
+    <aside class="w-64 bg-white shadow-sm fixed left-0 top-16 bottom-0 
+                  overflow-y-auto border-r border-gray-200">
+        <nav class="p-4 space-y-1">
+
+            <!-- Dashboard -->
+            <a href="/Admin/Dashboard.aspx" 
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors font-medium text-sm">
+                <span class="text-lg">📊</span> Dashboard
+            </a>
+
+            <!-- Catalogue Section -->
+            <p class="text-xs text-gray-400 uppercase tracking-widest 
+                      px-3 pt-4 pb-1 font-semibold">Catalogue</p>
+
+            <a href="/Admin/Categories.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">🏷️</span> Categories
+            </a>
+
+            <a href="/Admin/Products.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">🥦</span> Products
+            </a>
+
+            <a href="/Admin/ProduceBoxes.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">📦</span> Produce Boxes
+            </a>
+
+            <!-- Orders Section -->
+            <p class="text-xs text-gray-400 uppercase tracking-widest 
+                      px-3 pt-4 pb-1 font-semibold">Orders</p>
+
+            <a href="/Admin/Orders.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">🛒</span> Orders
+            </a>
+
+            <a href="/Admin/Deliveries.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">🚚</span> Deliveries
+            </a>
+
+            <a href="/Admin/Payments.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">💳</span> Payments
+            </a>
+
+            <!-- People Section -->
+            <p class="text-xs text-gray-400 uppercase tracking-widest 
+                      px-3 pt-4 pb-1 font-semibold">People</p>
+
+            <a href="/Admin/Customers.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">👥</span> Customers
+            </a>
+
+            <a href="/Admin/Feedback.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">💬</span> Feedback
+            </a>
+
+            <!-- Reports -->
+            <p class="text-xs text-gray-400 uppercase tracking-widest 
+                      px-3 pt-4 pb-1 font-semibold">Reports</p>
+
+            <a href="/Admin/Reports.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">📈</span> Reports
+            </a>
+
+            <!-- Content -->
+            <p class="text-xs text-gray-400 uppercase tracking-widest 
+                      px-3 pt-4 pb-1 font-semibold">Content</p>
+
+            <a href="/Admin/FAQ.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
+                      transition-colors text-sm">
+                <span class="text-lg">❓</span> FAQ
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- ── MAIN CONTENT AREA ─────────────────────────────── -->
+    <main class="ml-64 flex-1 p-6">
+        <asp:ContentPlaceHolder ID="AdminContent" runat="server" />
+    </main>
+
+</div>
+
+</form>
+
+<script>
+    // User dropdown toggle
+    function toggleUserMenu() {
+        document.getElementById('userMenu').classList.toggle('hidden');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (e) {
+        var wrapper = document.getElementById('userMenuWrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+            document.getElementById('userMenu').classList.add('hidden');
+        }
+    });
+
+    // Highlight active nav link
+    (function () {
+        var path = window.location.pathname.toLowerCase();
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            if (link.getAttribute('href') && 
+                path.includes(link.getAttribute('href').toLowerCase().replace('/admin/', ''))) {
+                link.classList.add('bg-green-50', 'text-[#2d6a4f]', 'font-semibold');
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>

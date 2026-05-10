@@ -1,0 +1,55 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+
+# IIS / ASP.NET generated files
+App_Data/*.ldf
+App_Data/*.mdf
+App_Data/*.bak
+App_Data/*.log
+
+# Publish profiles
+Properties/PublishProfiles/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Resharper / Rider
+_ReSharper*/
+*.DotSettings.user
+
+# Other IDE caches
+.idea/
+*.iml
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+

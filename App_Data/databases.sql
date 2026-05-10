@@ -1,0 +1,246 @@
+-- =============================================
+-- SEED DATA
+-- =============================================
+--INSERT INTO Categories (Name, Description, SortOrder, CreatedBy) VALUES
+--('Fresh Fruits',      'Seasonal and year-round fresh fruits',        1, 'system'),
+--('Vegetables',        'Organically grown vegetables',                2, 'system'),
+--('Honey & Jams',      'Pure raw honey and homemade fruit jams',      3, 'system'),
+--('Produce Boxes',     'Weekly curated boxes',                        4, 'system'),
+--('Seasonal Specials', 'Limited seasonal harvests and bundles',       5, 'system');
+
+--INSERT INTO Products 
+--    (CategoryId, Name, Description, Price, Unit, Stock, IsFeatured, IsActive, CreatedBy) 
+--VALUES
+--(1, 'Organic Strawberries', 'Sweet sun-ripened strawberries.',       6.50,  'per 500g',    100, 1, 1, 'system'),
+--(1, 'Fuji Apples',          'Crisp pesticide-free Fuji apples.',     4.20,  'per kg',       80, 1, 1, 'system'),
+--(1, 'Valencia Oranges',     'Perfect for juicing.',                  3.80,  'per kg',      120, 0, 1, 'system'),
+--(2, 'Baby Spinach',         'Tender leaves for salads.',             3.50,  'per 200g',     60, 1, 1, 'system'),
+--(2, 'Cherry Tomatoes',      'Vine-ripened, bursting with flavour.',  4.00,  'per 400g',     90, 0, 1, 'system'),
+--(2, 'Organic Carrots',      'Sweet and crunchy, freshly harvested.', 2.80,  'per kg',      150, 0, 1, 'system'),
+--(3, 'Raw Wildflower Honey', 'Unprocessed honey from our hives.',    12.00,  'per 500g jar', 40, 1, 1, 'system'),
+--(3, 'Strawberry Jam',       'Homemade, no artificial additives.',    7.50,  'per 350g jar', 35, 0, 1, 'system'),
+--(4, 'Family Veggie Box',    '8 seasonal vegetables for a family.',  28.00,  'per box',      50, 1, 1, 'system'),
+--(5, 'Seasonal Mango Box',   'Alphonso mangoes, limited season.',    18.00,  'per box of 6', 25, 1, 1, 'system');
+
+--INSERT INTO FAQ (Question, Answer, SortOrder, CreatedBy) VALUES
+--('How are your products grown?',        'All produce is grown using organic, chemical-free methods.', 1, 'system'),
+--('Do you deliver to my area?',          'We deliver within a 30km radius. Check at checkout.',        2, 'system'),
+--('Can I customise my weekly box?',      'Yes! Registered members can customise from their dashboard.',3, 'system'),
+--('What payment methods do you accept?', 'Credit/debit card and cash on delivery.',                    4, 'system'),
+--('How fresh is the produce?',           'Harvested within 24-48 hours of your delivery.',             5, 'system'),
+--('Can I pick up my order?',             'Farm pickup available Tuesday to Saturday, 8am to 1pm.',     6, 'system');
+
+-- Admin user (password: Admin@123 — change before submission)
+-- Password hash below is SHA256 of "Admin@123" for demo purposes
+-- In production use proper hashing (we will implement this in code)
+--INSERT INTO AdminUsers (Username, PasswordHash, FullName, Email, CreatedBy) VALUES('admin', 'Admin@123', 'System Administrator', 'admin@tansorganic.com', 'system');
+-- =============================================
+
+-- USE TansDB;
+-- GO
+
+-- =============================================
+-- CATEGORIES
+-- =============================================
+--CREATE TABLE Categories (
+--    CategoryId    INT IDENTITY(1,1) PRIMARY KEY,
+--    Name          NVARCHAR(100) NOT NULL,
+--    Description   NVARCHAR(500),
+--    ImageUrl      NVARCHAR(300),
+--    IsActive      BIT DEFAULT 1,
+--    SortOrder     INT DEFAULT 0,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- PRODUCTS
+-- =============================================
+--CREATE TABLE Products (
+--    ProductId     INT IDENTITY(1,1) PRIMARY KEY,
+--    CategoryId    INT NOT NULL FOREIGN KEY REFERENCES Categories(CategoryId),
+--    Name          NVARCHAR(200) NOT NULL,
+--    Description   NVARCHAR(2000),
+--    Price         DECIMAL(10,2) NOT NULL,
+--    Unit          NVARCHAR(50),
+--    Stock         INT DEFAULT 0,
+--    ImageUrl      NVARCHAR(300),
+--    IsFeatured    BIT DEFAULT 0,
+--    IsActive      BIT DEFAULT 1,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- PRODUCE BOXES (weekly subscription boxes)
+-- =============================================
+--CREATE TABLE ProduceBoxes (
+--    BoxId         INT IDENTITY(1,1) PRIMARY KEY,
+--    Name          NVARCHAR(200) NOT NULL,
+--    Description   NVARCHAR(1000),
+--    Price         DECIMAL(10,2) NOT NULL,
+--    ImageUrl      NVARCHAR(300),
+--    IsActive      BIT DEFAULT 1,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- CUSTOMER PROFILES (extends ASP.NET Identity)
+-- =============================================
+--CREATE TABLE CustomerProfiles (
+--    ProfileId     INT IDENTITY(1,1) PRIMARY KEY,
+--    UserId        NVARCHAR(128) NOT NULL,
+--    FullName      NVARCHAR(200),
+--    Phone         NVARCHAR(20),
+--    Address       NVARCHAR(500),
+--    City          NVARCHAR(100),
+--    PostalCode    NVARCHAR(20),
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- ORDERS
+-- =============================================
+--CREATE TABLE Orders (
+--    OrderId         INT IDENTITY(1,1) PRIMARY KEY,
+--    UserId          NVARCHAR(128) NOT NULL,
+--    OrderDate       DATETIME DEFAULT GETDATE(),
+--    TotalAmount     DECIMAL(10,2),
+--    Status          NVARCHAR(50) DEFAULT 'Pending',
+--    PaymentMethod   NVARCHAR(50),
+--    PaymentStatus   NVARCHAR(50) DEFAULT 'Unpaid',
+--    Notes           NVARCHAR(1000),
+--    CreatedAt       DATETIME DEFAULT GETDATE(),
+--    CreatedBy       NVARCHAR(128),
+--    UpdatedAt       DATETIME,
+--    UpdatedBy       NVARCHAR(128)
+--);
+
+-- =============================================
+-- ORDER ITEMS
+-- =============================================
+--CREATE TABLE OrderItems (
+--    OrderItemId   INT IDENTITY(1,1) PRIMARY KEY,
+--    OrderId       INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
+--    ProductId     INT NOT NULL FOREIGN KEY REFERENCES Products(ProductId),
+--    Quantity      INT NOT NULL,
+--    UnitPrice     DECIMAL(10,2) NOT NULL,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- DELIVERIES
+-- =============================================
+--CREATE TABLE Deliveries (
+--    DeliveryId      INT IDENTITY(1,1) PRIMARY KEY,
+--    OrderId         INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
+--    FullName        NVARCHAR(200),
+--    Phone           NVARCHAR(20),
+--    Address         NVARCHAR(500),
+--    City            NVARCHAR(100),
+--    PostalCode      NVARCHAR(20),
+--    DeliveryOption  NVARCHAR(50),
+--    PreferredDate   DATETIME,
+--    Status          NVARCHAR(50) DEFAULT 'Pending',
+--    Notes           NVARCHAR(500),
+--    CreatedAt       DATETIME DEFAULT GETDATE(),
+--    CreatedBy       NVARCHAR(128),
+--    UpdatedAt       DATETIME,
+--    UpdatedBy       NVARCHAR(128)
+--);
+
+-- =============================================
+-- PAYMENTS
+-- =============================================
+--CREATE TABLE Payments (
+--    PaymentId       INT IDENTITY(1,1) PRIMARY KEY,
+--    OrderId         INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
+--    PaymentMethod   NVARCHAR(50),
+--    Amount          DECIMAL(10,2),
+--    CardLastFour    NVARCHAR(4),
+--    CardHolderName  NVARCHAR(200),
+--    TransactionRef  NVARCHAR(100),
+--    PaidAt          DATETIME DEFAULT GETDATE(),
+--    Status          NVARCHAR(50) DEFAULT 'Completed',
+--    CreatedAt       DATETIME DEFAULT GETDATE(),
+--    CreatedBy       NVARCHAR(128),
+--    UpdatedAt       DATETIME,
+--    UpdatedBy       NVARCHAR(128)
+--);
+
+-- =============================================
+-- CART
+-- =============================================
+--CREATE TABLE Cart (
+--    CartId        INT IDENTITY(1,1) PRIMARY KEY,
+--    UserId        NVARCHAR(128) NOT NULL,
+--    ProductId     INT NOT NULL FOREIGN KEY REFERENCES Products(ProductId),
+--    Quantity      INT DEFAULT 1,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- FEEDBACK
+-- =============================================
+--CREATE TABLE Feedback (
+--    FeedbackId    INT IDENTITY(1,1) PRIMARY KEY,
+--    Name          NVARCHAR(200) NOT NULL,
+--    Email         NVARCHAR(200) NOT NULL,
+--    Subject       NVARCHAR(300),
+--    Message       NVARCHAR(2000) NOT NULL,
+--    Category      NVARCHAR(100),
+--    IsRead        BIT DEFAULT 0,
+--    AdminReply    NVARCHAR(2000),
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- FAQ
+-- =============================================
+--CREATE TABLE FAQ (
+--    FAQId         INT IDENTITY(1,1) PRIMARY KEY,
+--    Question      NVARCHAR(500) NOT NULL,
+--    Answer        NVARCHAR(2000) NOT NULL,
+--    SortOrder     INT DEFAULT 0,
+--    IsActive      BIT DEFAULT 1,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
+
+-- =============================================
+-- ADMIN USERS (separate from member accounts)
+-- =============================================
+--CREATE TABLE AdminUsers (
+--    AdminId       INT IDENTITY(1,1) PRIMARY KEY,
+--    Username      NVARCHAR(100) NOT NULL UNIQUE,
+--    PasswordHash  NVARCHAR(256) NOT NULL,
+--    FullName      NVARCHAR(200),
+--    Email         NVARCHAR(200),
+--    IsActive      BIT DEFAULT 1,
+--    LastLoginAt   DATETIME,
+--    CreatedAt     DATETIME DEFAULT GETDATE(),
+--    CreatedBy     NVARCHAR(128),
+--    UpdatedAt     DATETIME,
+--    UpdatedBy     NVARCHAR(128)
+--);
