@@ -166,6 +166,11 @@
     <Content Include="Admin\CategoryForm.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\AdminLogin.aspx" />
+    <Content Include="Admin\Deliveries.aspx" />
+    <Content Include="Admin\FAQ.aspx" />
+    <Content Include="Admin\Feedback.aspx" />
+    <Content Include="Admin\OrderDetail.aspx" />
+    <Content Include="Admin\Orders.aspx" />
     <Content Include="Admin\ProduceBoxes.aspx" />
     <Content Include="Admin\ProduceBoxForm.aspx" />
     <Content Include="Admin\ProductForm.aspx" />
@@ -193,11 +198,14 @@
     <Content Include="Content\tailwind.css" />
     <Content Include="Controls\NavigationMenu.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="FAQ.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ReadMe.html" />
     <Content Include="Members\Cart.aspx" />
     <Content Include="Members\Checkout.aspx" />
     <Content Include="Members\OrderConfirmation.aspx" />
+    <Content Include="Members\OrderHistory.aspx" />
     <Content Include="ProductDetail.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -385,6 +393,41 @@
     <Compile Include="Admin\CategoryForm.aspx.designer.cs">
       <DependentUpon>CategoryForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Deliveries.aspx.cs">
+      <DependentUpon>Deliveries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Deliveries.aspx.designer.cs">
+      <DependentUpon>Deliveries.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FAQ.aspx.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FAQ.aspx.designer.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\OrderDetail.aspx.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\OrderDetail.aspx.designer.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ProduceBoxes.aspx.cs">
       <DependentUpon>ProduceBoxes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -483,6 +526,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FAQ.aspx.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQ.aspx.designer.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -506,6 +556,13 @@
     </Compile>
     <Compile Include="Members\OrderConfirmation.aspx.designer.cs">
       <DependentUpon>OrderConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\OrderHistory.aspx.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\OrderHistory.aspx.designer.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ProductDetail.aspx.cs">

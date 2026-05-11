@@ -62,4 +62,56 @@ public static class ViewHelpers
             ? "bg-green-100 text-green-700 text-xs px-2.5 py-1 rounded-full font-medium"
             : "bg-gray-100 text-gray-500 text-xs px-2.5 py-1 rounded-full font-medium";
     }
+
+    public static string GetOrderStatusBadge(object status)
+    {
+        if (status == null) return "";
+        string s = status.ToString();
+        string css;
+        string icon;
+        switch (s)
+        {
+            case "Pending":
+                css = "bg-amber-100 text-amber-700";
+                icon = "⏳";
+                break;
+            case "Processing":
+                css = "bg-blue-100 text-blue-700";
+                icon = "⚙️";
+                break;
+            case "Shipped":
+                css = "bg-purple-100 text-purple-700";
+                icon = "🚚";
+                break;
+            case "Delivered":
+                css = "bg-green-100 text-green-700";
+                icon = "✅";
+                break;
+            case "Cancelled":
+                css = "bg-red-100 text-red-700";
+                icon = "❌";
+                break;
+            default:
+                css = "bg-gray-100 text-gray-600";
+                icon = "📋";
+                break;
+        }
+        return string.Format(
+            "<span class='{0} text-xs font-semibold px-2.5 py-1 rounded-full'>" +
+            "{1} {2}</span>", css, icon, s);
+    }
+
+    public static string GetPaymentStatusBadge(object status)
+    {
+        if (status == null) return "";
+        string s = status.ToString();
+        bool paid = s == "Paid";
+        string css = paid
+            ? "bg-green-100 text-green-700"
+            : "bg-amber-100 text-amber-700";
+        string icon = paid ? "💳" : "⏳";
+        return string.Format(
+            "<span class='{0} text-xs font-semibold px-2.5 py-1 rounded-full'>" +
+            "{1} {2}</span>", css, icon, s);
+    }
 }

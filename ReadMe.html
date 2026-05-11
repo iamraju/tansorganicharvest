@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadMe — Tan's Organic Harvest</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 24px;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        h1 {
+            color: #2d6a4f;
+            border-bottom: 3px solid #2d6a4f;
+            padding-bottom: 12px;
+        }
+
+        h2 {
+            color: #1b4332;
+            margin-top: 32px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+
+        th {
+            background: #2d6a4f;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) td {
+            background: #f5f9f7;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        ul li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌿 Tan's Organic Harvest — ReadMe</h1>
+    <p>
+        An interactive e-commerce web application built with
+        <strong>ASP.NET Web Forms (.NET Framework 4.8)</strong> and
+        <strong>Microsoft SQL Server</strong>.
+    </p>
+
+    <h2>🔐 Administrator Credentials</h2>
+    <table>
+        <tr><th>Role</th><th>Username</th><th>Password</th></tr>
+        <tr>
+            <td><span class="badge green">Admin</span></td>
+            <td><code>admin</code></td>
+            <td><code>Admin@123</code></td>
+        </tr>
+    </table>
+    <p>
+        Admin login URL: <code>/Admin/AdminLogin.aspx</code>
+    </p>
+
+    <h2>👤 Test Member Account</h2>
+    <p>
+        Register a new account via <code>/Account/Register.aspx</code>
+        or use any registered email and password.
+    </p>
+
+    <h2>⚙️ Setup &amp; Configuration</h2>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Visual Studio 2022 or later</li>
+        <li>SQL Server Express 2019 or later (or LocalDB)</li>
+        <li>.NET Framework 4.8</li>
+    </ul>
+
+    <h3>Database Setup</h3>
+    <ol>
+        <li>Open SQL Server Management Studio (SSMS)</li>
+        <li>Run the schema script: <code>Database/TansDB_Schema.sql</code></li>
+        <li>
+            The connection string in <code>web.config</code> is pre-configured:
+            <br /><code>
+                Data Source=localhost\SQLEXPRESS; Initial Catalog=TansDB;
+                Integrated Security=True
+            </code>
+        </li>
+        <li>
+            If your SQL Server instance name differs, update
+            <code>Data Source</code> in <code>web.config</code>
+        </li>
+    </ol>
+
+    <h3>Running the Application</h3>
+    <ol>
+        <li>Open <code>TansOrganicHarvest.sln</code> in Visual Studio</li>
+        <li>Press <strong>F5</strong> or click <em>Start Debugging</em></li>
+        <li>The site opens at <code>https://localhost:PORT/</code></li>
+    </ol>
+
+    <h2>📄 Website Pages</h2>
+    <table>
+        <tr><th>Page</th><th>URL</th><th>Access</th></tr>
+        <tr>
+            <td>Home</td>
+            <td><code>/Default.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Shop</td>
+            <td><code>/Shop.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Product Detail</td>
+            <td><code>/ProductDetail.aspx?id=X</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Weekly Boxes</td>
+            <td><code>/ProduceBoxes.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>About</td>
+            <td><code>/About.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>FAQ</td>
+            <td><code>/FAQ.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td><code>/Contact.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Register</td>
+            <td><code>/Account/Register.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Login</td>
+            <td><code>/Account/Login.aspx</code></td>
+            <td><span class="badge blue">Public</span></td>
+        </tr>
+        <tr>
+            <td>Shopping Cart</td>
+            <td><code>/Members/Cart.aspx</code></td>
+            <td><span class="badge green">Member</span></td>
+        </tr>
+        <tr>
+            <td>Checkout</td>
+            <td><code>/Members/Checkout.aspx</code></td>
+            <td><span class="badge green">Member</span></td>
+        </tr>
+        <tr>
+            <td>Order Confirmation</td>
+            <td><code>/Members/OrderConfirmation.aspx</code></td>
+            <td><span class="badge green">Member</span></td>
+        </tr>
+        <tr>
+            <td>Order History</td>
+            <td><code>/Members/OrderHistory.aspx</code></td>
+            <td><span class="badge green">Member</span></td>
+        </tr>
+        <tr>
+            <td>Admin Dashboard</td>
+            <td><code>/Admin/Dashboard.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+        <tr>
+            <td>Manage Products</td>
+            <td><code>/Admin/Products.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+        <tr>
+            <td>Manage Categories</td>
+            <td><code>/Admin/Categories.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+        <tr>
+            <td>Manage Orders</td>
+            <td><code>/Admin/Orders.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+        <tr>
+            <td>Manage Deliveries</td>
+            <td><code>/Admin/Deliveries.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+        <tr>
+            <td>Customer Feedback</td>
+            <td><code>/Admin/Feedback.aspx</code></td>
+            <td><span class="badge" style="background:#fee2e2;color:#991b1b">Admin</span></td>
+        </tr>
+    </table>
+
+    <h2>🛠️ Technologies Used</h2>
+    <ul>
+        <li>ASP.NET Web Forms (.NET Framework 4.8)</li>
+        <li>C# code-behind</li>
+        <li>Microsoft SQL Server Express</li>
+        <li>ASP.NET Identity for member authentication</li>
+        <li>Tailwind CSS (via CDN) for styling</li>
+        <li>Vanilla JavaScript for interactivity</li>
+    </ul>
+
+    <hr />
+    <p style="color:#888; font-size:0.85em;">
+        Tan's Organic Harvest — College Assignment Project · 2025
+    </p>
+
+</body>
+</html>
