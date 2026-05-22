@@ -217,26 +217,25 @@
                 <!-- Payment selector -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
 
+                    <!-- Inside the payment method selection grid -->
                     <div class="payment-option">
-                        <asp:RadioButton ID="rbCreditCard" runat="server"
-                            GroupName="PaymentMethod" Checked="true"
+                        <asp:RadioButton ID="rbEsewa" runat="server"
+                            GroupName="PaymentMethod"
                             CssClass="sr-only" />
-                        <label for="<%= rbCreditCard.ClientID %>"
-                               onclick="showPayment('card')"
-                               class="flex items-center gap-3 border-2 border-gray-200 
-                                      rounded-xl p-4 hover:border-forest 
-                                      transition-colors cursor-pointer block">
-                            <span class="text-2xl">💳</span>
+                        <label for="<%= rbEsewa.ClientID %>"
+                               onclick="showPayment('esewa')"
+                               class="flex items-center gap-3 border-2 border-gray-200
+                                      rounded-xl p-4 hover:border-forest transition-colors
+                                      cursor-pointer block">
+                            <span class="text-2xl">💚</span>
                             <div>
-                                <p class="font-semibold text-gray-800 text-sm">
-                                    Credit / Debit Card
-                                </p>
-                                <p class="text-xs text-gray-400">Visa, Mastercard</p>
+                                <p class="font-semibold text-gray-800 text-sm">eSewa</p>
+                                <p class="text-xs text-gray-400">Nepal Digital Wallet</p>
                             </div>
                         </label>
                     </div>
 
-                    <div class="payment-option">
+                    <%--<div class="payment-option">
                         <asp:RadioButton ID="rbPayPal" runat="server"
                             GroupName="PaymentMethod"
                             CssClass="sr-only" />
@@ -253,7 +252,7 @@
                                 <p class="text-xs text-gray-400">Pay via PayPal</p>
                             </div>
                         </label>
-                    </div>
+                    </div>--%>
 
                     <div class="payment-option">
                         <asp:RadioButton ID="rbCOD" runat="server"
@@ -351,6 +350,24 @@
                     </div>
                 </div>
 
+                <!-- eSewa panel -->
+                <div id="panelEsewa" class="hidden">
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                        <div class="text-5xl mb-3">💚</div>
+                        <h3 class="font-bold text-green-800 text-lg mb-2">Pay with eSewa</h3>
+                        <p class="text-green-700 text-sm mb-3">
+                            You will be redirected to eSewa to complete your payment securely.
+                        </p>
+                        <div class="bg-white rounded-lg px-4 py-3 text-xs text-green-600
+                                    border border-green-200 text-left space-y-1">
+                            <p class="font-semibold">Sandbox Test Credentials:</p>
+                            <p>eSewa ID: <strong>9806800001</strong></p>
+                            <p>Password: <strong>Nepal@123</strong></p>
+                            <p>OTP/Token: <strong>123456</strong></p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- COD panel -->
                 <div id="panelCOD" class="hidden">
                     <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 
@@ -434,28 +451,36 @@
 
 <script>
     function showPayment(type) {
-        document.getElementById('panelCard').classList.add('hidden');
-        document.getElementById('panelPaypal').classList.add('hidden');
-        document.getElementById('panelCOD').classList.add('hidden');
+        //document.getElementById('panelCard').classList.add('hidden');
+        //document.getElementById('panelPaypal').classList.add('hidden');
+        //document.getElementById('panelCOD').classList.add('hidden');
+        //document.getElementById('panelEsewa').classList.add('hidden');
 
-        if (type === 'card')   document.getElementById('panelCard').classList.remove('hidden');
-        if (type === 'paypal') document.getElementById('panelPaypal').classList.remove('hidden');
-        if (type === 'cod')    document.getElementById('panelCOD').classList.remove('hidden');
+        //if (type === 'card')   document.getElementById('panelCard').classList.remove('hidden');
+        //if (type === 'paypal') document.getElementById('panelPaypal').classList.remove('hidden');
+        //if (type === 'cod')    document.getElementById('panelCOD').classList.remove('hidden');
+        //if (type === 'esewa')  document.getElementById('panelEsewa').classList.remove('hidden');
+        ['card', 'paypal', 'cod', 'esewa'].forEach(function (t) {
+            document.getElementById('panel' + t.charAt(0).toUpperCase() + t.slice(1))
+                .classList.add('hidden');
+        });
+        let id = 'panel' + type.charAt(0).toUpperCase() + type.slice(1);
+        document.getElementById(id).classList.remove('hidden');
     }
 
     // Format card number with spaces
     document.addEventListener('DOMContentLoaded', function () {
-        var cardInput = document.getElementById('<%= txtCardNumber.ClientID %>');
+        let cardInput = document.getElementById('<%= txtCardNumber.ClientID %>');
         if (cardInput) {
             cardInput.addEventListener('input', function (e) {
-                var val = e.target.value.replace(/\D/g, '').substring(0, 16);
+                let val = e.target.value.replace(/\D/g, '').substring(0, 16);
                 e.target.value = val.replace(/(.{4})/g, '$1 ').trim();
             });
         }
-        var expiryInput = document.getElementById('<%= txtExpiry.ClientID %>');
+        let expiryInput = document.getElementById('<%= txtExpiry.ClientID %>');
         if (expiryInput) {
             expiryInput.addEventListener('input', function (e) {
-                var val = e.target.value.replace(/\D/g, '').substring(0, 4);
+                let val = e.target.value.replace(/\D/g, '').substring(0, 4);
                 if (val.length >= 2)
                     e.target.value = val.substring(0, 2) + '/' + val.substring(2);
                 else

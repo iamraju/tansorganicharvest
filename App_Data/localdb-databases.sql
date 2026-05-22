@@ -1,13 +1,84 @@
--- ============================================
--- ESEWA
--- ============================================
---ALTER TABLE Payments
---    ADD EsewaTransactionCode NVARCHAR(100),
---        EsewaRefId           NVARCHAR(100),
---        EsewaStatus          NVARCHAR(50);
+-- =============================================
+-- ASP.NET Identity Tables for TansDB
+-- =============================================
 
--- ============================================
--- Verify CustomerProfiles has all columns we need
+--CREATE TABLE [dbo].[AspNetRoles] (
+--    [Id]               NVARCHAR (128) NOT NULL,
+--    [Name]             NVARCHAR (256) NOT NULL,
+--    CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED ([Id] ASC)
+--);
+
+--CREATE UNIQUE INDEX [RoleNameIndex] 
+--    ON [dbo].[AspNetRoles] ([Name] ASC);
+
+---- -----------------------------------------------
+
+--CREATE TABLE [dbo].[AspNetUsers] (
+--    [Id]                   NVARCHAR (128) NOT NULL,
+--    [Email]                NVARCHAR (256),
+--    [EmailConfirmed]       BIT            NOT NULL,
+--    [PasswordHash]         NVARCHAR (MAX),
+--    [SecurityStamp]        NVARCHAR (MAX),
+--    [PhoneNumber]          NVARCHAR (MAX),
+--    [PhoneNumberConfirmed] BIT            NOT NULL,
+--    [TwoFactorEnabled]     BIT            NOT NULL,
+--    [LockoutEndDateUtc]    DATETIME,
+--    [LockoutEnabled]       BIT            NOT NULL,
+--    [AccessFailedCount]    INT            NOT NULL,
+--    [UserName]             NVARCHAR (256) NOT NULL,
+--    CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
+--);
+
+--CREATE UNIQUE INDEX [UserNameIndex] 
+--    ON [dbo].[AspNetUsers] ([UserName] ASC);
+
+-- -----------------------------------------------
+
+--CREATE TABLE [dbo].[AspNetUserRoles] (
+--    [UserId] NVARCHAR (128) NOT NULL,
+--    [RoleId] NVARCHAR (128) NOT NULL,
+--    CONSTRAINT [PK_dbo.AspNetUserRoles] 
+--        PRIMARY KEY CLUSTERED ([UserId] ASC, [RoleId] ASC),
+--    CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetRoles_RoleId] 
+--        FOREIGN KEY ([RoleId]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE,
+--    CONSTRAINT [FK_dbo.AspNetUserRoles_dbo.AspNetUsers_UserId] 
+--        FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+--);
+
+--CREATE INDEX [IX_UserId] ON [dbo].[AspNetUserRoles] ([UserId] ASC);
+--CREATE INDEX [IX_RoleId] ON [dbo].[AspNetUserRoles] ([RoleId] ASC);
+
+-- -----------------------------------------------
+
+--CREATE TABLE [dbo].[AspNetUserClaims] (
+--    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+--    [UserId]     NVARCHAR (128) NOT NULL,
+--    [ClaimType]  NVARCHAR (MAX),
+--    [ClaimValue] NVARCHAR (MAX),
+--    CONSTRAINT [PK_dbo.AspNetUserClaims] 
+--        PRIMARY KEY CLUSTERED ([Id] ASC),
+--    CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId] 
+--        FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+--);
+
+--CREATE INDEX [IX_UserId] ON [dbo].[AspNetUserClaims] ([UserId] ASC);
+
+-- -----------------------------------------------
+
+--CREATE TABLE [dbo].[AspNetUserLogins] (
+--    [LoginProvider]       NVARCHAR (128) NOT NULL,
+--    [ProviderKey]         NVARCHAR (128) NOT NULL,
+--    [UserId]              NVARCHAR (128) NOT NULL,
+--    CONSTRAINT [PK_dbo.AspNetUserLogins] 
+--        PRIMARY KEY CLUSTERED ([LoginProvider] ASC, [ProviderKey] ASC, [UserId] ASC),
+--    CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId] 
+--        FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+--);
+
+--CREATE INDEX [IX_UserId] ON [dbo].[AspNetUserLogins] ([UserId] ASC);
+
+ --============================================
+ --Verify CustomerProfiles has all columns we need
 --IF NOT EXISTS (
 --    SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS 
 --    WHERE TABLE_NAME = 'CustomerProfiles' AND COLUMN_NAME = 'UserId'
@@ -15,6 +86,7 @@
 --BEGIN
 --    ALTER TABLE CustomerProfiles ADD UserId NVARCHAR(128) NOT NULL DEFAULT '';
 --END
+
 -- Add Contents column if not exists
 -- ============================================
 --IF NOT EXISTS (
@@ -62,12 +134,12 @@
 --INSERT INTO AdminUsers (Username, PasswordHash, FullName, Email, CreatedBy) VALUES('admin', 'Admin@123', 'System Administrator', 'admin@tansorganic.com', 'system');
 -- =============================================
 
--- USE TansDB;
--- GO
+ --USE TansDB;
+ --GO
 
--- =============================================
--- CATEGORIES
--- =============================================
+---- =============================================
+---- CATEGORIES
+---- =============================================
 --CREATE TABLE Categories (
 --    CategoryId    INT IDENTITY(1,1) PRIMARY KEY,
 --    Name          NVARCHAR(100) NOT NULL,
@@ -81,9 +153,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- PRODUCTS
--- =============================================
+---- =============================================
+---- PRODUCTS
+---- =============================================
 --CREATE TABLE Products (
 --    ProductId     INT IDENTITY(1,1) PRIMARY KEY,
 --    CategoryId    INT NOT NULL FOREIGN KEY REFERENCES Categories(CategoryId),
@@ -101,9 +173,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- PRODUCE BOXES (weekly subscription boxes)
--- =============================================
+---- =============================================
+---- PRODUCE BOXES (weekly subscription boxes)
+---- =============================================
 --CREATE TABLE ProduceBoxes (
 --    BoxId         INT IDENTITY(1,1) PRIMARY KEY,
 --    Name          NVARCHAR(200) NOT NULL,
@@ -117,9 +189,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- CUSTOMER PROFILES (extends ASP.NET Identity)
--- =============================================
+---- =============================================
+---- CUSTOMER PROFILES (extends ASP.NET Identity)
+---- =============================================
 --CREATE TABLE CustomerProfiles (
 --    ProfileId     INT IDENTITY(1,1) PRIMARY KEY,
 --    UserId        NVARCHAR(128) NOT NULL,
@@ -134,9 +206,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- ORDERS
--- =============================================
+---- =============================================
+---- ORDERS
+---- =============================================
 --CREATE TABLE Orders (
 --    OrderId         INT IDENTITY(1,1) PRIMARY KEY,
 --    UserId          NVARCHAR(128) NOT NULL,
@@ -152,9 +224,9 @@
 --    UpdatedBy       NVARCHAR(128)
 --);
 
--- =============================================
--- ORDER ITEMS
--- =============================================
+---- =============================================
+---- ORDER ITEMS
+---- =============================================
 --CREATE TABLE OrderItems (
 --    OrderItemId   INT IDENTITY(1,1) PRIMARY KEY,
 --    OrderId       INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
@@ -167,9 +239,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- DELIVERIES
--- =============================================
+---- =============================================
+---- DELIVERIES
+---- =============================================
 --CREATE TABLE Deliveries (
 --    DeliveryId      INT IDENTITY(1,1) PRIMARY KEY,
 --    OrderId         INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
@@ -188,9 +260,9 @@
 --    UpdatedBy       NVARCHAR(128)
 --);
 
--- =============================================
--- PAYMENTS
--- =============================================
+---- =============================================
+---- PAYMENTS
+---- =============================================
 --CREATE TABLE Payments (
 --    PaymentId       INT IDENTITY(1,1) PRIMARY KEY,
 --    OrderId         INT NOT NULL FOREIGN KEY REFERENCES Orders(OrderId),
@@ -207,9 +279,9 @@
 --    UpdatedBy       NVARCHAR(128)
 --);
 
--- =============================================
--- CART
--- =============================================
+---- =============================================
+---- CART
+---- =============================================
 --CREATE TABLE Cart (
 --    CartId        INT IDENTITY(1,1) PRIMARY KEY,
 --    UserId        NVARCHAR(128) NOT NULL,
@@ -221,9 +293,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- FEEDBACK
--- =============================================
+---- =============================================
+---- FEEDBACK
+---- =============================================
 --CREATE TABLE Feedback (
 --    FeedbackId    INT IDENTITY(1,1) PRIMARY KEY,
 --    Name          NVARCHAR(200) NOT NULL,
@@ -239,9 +311,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- FAQ
--- =============================================
+---- =============================================
+---- FAQ
+---- =============================================
 --CREATE TABLE FAQ (
 --    FAQId         INT IDENTITY(1,1) PRIMARY KEY,
 --    Question      NVARCHAR(500) NOT NULL,
@@ -254,9 +326,9 @@
 --    UpdatedBy     NVARCHAR(128)
 --);
 
--- =============================================
--- ADMIN USERS (separate from member accounts)
--- =============================================
+---- =============================================
+---- ADMIN USERS (separate from member accounts)
+---- =============================================
 --CREATE TABLE AdminUsers (
 --    AdminId       INT IDENTITY(1,1) PRIMARY KEY,
 --    Username      NVARCHAR(100) NOT NULL UNIQUE,
