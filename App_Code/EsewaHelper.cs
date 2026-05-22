@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using System.Net.Http;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,7 +106,7 @@ public static class EsewaHelper
     /// independently of the client callback (prevents tampering).
     /// </summary>
     public static async Task<EsewaStatusResponse> VerifyTransactionAsync(
-        string transactionUuid, decimal totalAmount)
+    string transactionUuid, decimal totalAmount)
     {
         try
         {
@@ -117,13 +117,10 @@ public static class EsewaHelper
                 totalAmount.ToString("F2"),
                 HttpUtility.UrlEncode(transactionUuid));
 
-            using (var client = new HttpClient())
+            using (var client = new WebClient())
             {
-                client.Timeout = TimeSpan.FromSeconds(15);
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-                HttpResponseMessage response = await client.GetAsync(url);
-                string body = await response.Content.ReadAsStringAsync();
+                client.Headers.Add("Accept", "application/json");
+                string body = await client.DownloadStringTaskAsync(url);
 
                 var serializer = new JavaScriptSerializer();
                 return serializer.Deserialize<EsewaStatusResponse>(body);

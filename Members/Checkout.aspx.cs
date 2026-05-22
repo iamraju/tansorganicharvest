@@ -96,6 +96,11 @@ namespace TansOrganicHarvest.Members
         {
             if (!Page.IsValid) return;
 
+            // ── Read plain HTML radio button values ──────────────────────
+            // These are NOT runat="server" so they come via Request.Form
+            string deliveryOption = Request.Form["deliveryOption"] ?? "Delivery";
+            string paymentMethod = Request.Form["paymentMethod"] ?? "CashOnDelivery";
+
             string userId = UserId;
 
             try
@@ -104,17 +109,7 @@ namespace TansOrganicHarvest.Members
                 decimal delivery = (decimal)(ViewState["Delivery"] ?? 0m);
                 decimal total = (decimal)(ViewState["Total"] ?? 0m);
 
-                // Determine payment method
-                string paymentMethod = "CashOnDelivery";
-                if (rbEsewa.Checked) paymentMethod = "Esewa";
-
-                //if (rbCreditCard.Checked) paymentMethod = "CreditCard";
-                //else if (rbPayPal.Checked) paymentMethod = "PayPal";
-                //else if (rbEsewa.Checked) paymentMethod = "Esewa";
-
-                string deliveryOption = optDelivery.Checked ? "Delivery" : "Pickup";
-
-                // 1. Create the Order record (status: Pending, PaymentStatus: Unpaid)
+                // 1. Create Order
                 object orderId = DatabaseHelper.ExecuteScalar(
                     @"INSERT INTO Orders
                 (UserId, TotalAmount, Status, PaymentMethod,
@@ -158,7 +153,8 @@ namespace TansOrganicHarvest.Members
                         });
 
                     DatabaseHelper.ExecuteNonQuery(
-                        "UPDATE Products SET Stock = Stock - @qty WHERE ProductId = @pid AND Stock >= @qty",
+                        @"UPDATE Products SET Stock = Stock - @qty
+                  WHERE ProductId = @pid AND Stock >= @qty",
                         new[]
                         {
                     new SqlParameter("@qty", (int)item["Quantity"]),
@@ -197,13 +193,11 @@ namespace TansOrganicHarvest.Members
                     "DELETE FROM Cart WHERE UserId = @uid",
                     new[] { new SqlParameter("@uid", userId) });
 
-                // ── eSewa: redirect to eSewa gateway ─────────────────────
+                // ── eSewa: redirect to payment bridge page ────────────────
                 if (paymentMethod == "Esewa")
                 {
                     string transactionUuid = EsewaHelper.GenerateTransactionUuid(newOrderId);
 
-                    // Save a pending payment record with the transactionUuid
-                    // so we can match it in the callback
                     DatabaseHelper.ExecuteNonQuery(
                         @"INSERT INTO Payments
                     (OrderId, PaymentMethod, Amount, TransactionRef,
@@ -218,48 +212,31 @@ namespace TansOrganicHarvest.Members
                     new SqlParameter("@by",      User.Identity.Name)
                         });
 
-                    // Redirect to eSewa payment page
-                    string esewaUrl = BuildEsewaRedirectUrl(newOrderId, total, transactionUuid);
-                    Response.Redirect(esewaUrl);
+                    Response.Redirect(string.Format(
+                        "~/Members/EsewaPayment.aspx?orderId={0}&amount={1}&uuid={2}",
+                        newOrderId,
+                        total.ToString("F2"),
+                        Server.UrlEncode(transactionUuid)));
                     return;
                 }
 
-                // 5. Non-eSewa: create payment record and redirect to confirmation
+                // ── Cash on Delivery ──────────────────────────────────────
                 string txnRef = "TXN" + DateTime.Now.Ticks.ToString().Substring(0, 12);
-                string cardLast4 = "", cardHolder = "";
-
-                if (paymentMethod == "CreditCard" &&
-                    txtCardNumber.Text.Replace(" ", "").Length >= 4)
-                {
-                    string cleaned = txtCardNumber.Text.Replace(" ", "");
-                    cardLast4 = cleaned.Substring(cleaned.Length - 4);
-                    cardHolder = txtCardName.Text.Trim();
-                }
 
                 DatabaseHelper.ExecuteNonQuery(
                     @"INSERT INTO Payments
-                (OrderId, PaymentMethod, Amount, CardLastFour,
-                 CardHolderName, TransactionRef, Status, CreatedBy)
+                (OrderId, PaymentMethod, Amount, TransactionRef,
+                 Status, CreatedBy)
               VALUES
-                (@orderId, @method, @amount, @last4,
-                 @holder, @ref, 'Completed', @by)",
+                (@orderId, @method, @amount, @ref, 'Pending', @by)",
                     new[]
                     {
                 new SqlParameter("@orderId", newOrderId),
                 new SqlParameter("@method",  paymentMethod),
                 new SqlParameter("@amount",  total),
-                new SqlParameter("@last4",   cardLast4),
-                new SqlParameter("@holder",  cardHolder),
                 new SqlParameter("@ref",     txnRef),
                 new SqlParameter("@by",      User.Identity.Name)
                     });
-
-                if (paymentMethod != "CashOnDelivery")
-                {
-                    DatabaseHelper.ExecuteNonQuery(
-                        "UPDATE Orders SET PaymentStatus='Paid' WHERE OrderId=@id",
-                        new[] { new SqlParameter("@id", newOrderId) });
-                }
 
                 Response.Redirect("~/Members/OrderConfirmation.aspx?id=" + newOrderId);
             }

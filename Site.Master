@@ -170,7 +170,8 @@
                         <div class="flex items-center gap-2">
                             <a href="Members/Profile.aspx"
                                class="text-sm text-gray-600 hover:text-forest transition-colors">
-                                👤 <asp:LoginName ID="LoginName1" runat="server" />
+                                <%--👤 <asp:LoginName ID="LoginName1" runat="server" />--%>
+                                👤 <asp:Literal ID="litCustomerName" runat="server" Text='<%# CustomerFullName %>' />
                             </a>
                             <asp:LoginStatus ID="LoginStatus1" runat="server"
                                 LogoutText="Sign Out"
