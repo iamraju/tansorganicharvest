@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Web.UI;
 
-namespace TansOrganicHarvest.Members.EsewaFailure
+namespace TansOrganicHarvest.Members
 {
     public partial class EsewaFailure : Page
     {
