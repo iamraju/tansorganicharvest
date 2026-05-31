@@ -60,15 +60,13 @@
                         Category
                     </label>
                     <div class="space-y-1">
-                        <asp:Repeater ID="rptCategoryFilters" runat="server">
+                        <asp:Repeater ID="rptCategoryFilters" runat="server"
+                            OnItemCommand="rptCategoryFilters_ItemCommand">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbCat" runat="server"
                                     CommandName="FilterCat"
                                     CommandArgument='<%# Eval("CategoryId") %>'
-                                    CssClass="w-full flex items-center justify-between 
-                                              px-3 py-2 rounded-lg text-sm text-gray-600 
-                                              hover:bg-sage/10 hover:text-forest 
-                                              transition-colors text-left">
+                                    CssClass='<%# GetCategoryButtonClass(Eval("CategoryId").ToString()) %>'>
                                     <span><%# Eval("Name") %></span>
                                     <span class="bg-sage/20 text-forest text-xs 
                                                  px-1.5 py-0.5 rounded-md font-medium">
@@ -87,28 +85,30 @@
                         Sort By
                     </label>
                     <asp:DropDownList ID="ddlSort" runat="server"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlSort_SelectedIndexChanged"
                         CssClass="w-full border border-gray-200 rounded-xl px-3 py-2.5 
                                   text-sm focus:outline-none focus:ring-2 
                                   focus:ring-forest/30 bg-white">
-                        <asp:ListItem Text="Newest First"       Value="newest" />
+                        <asp:ListItem Text="Newest First" Value="newest" />
                         <asp:ListItem Text="Price: Low to High" Value="price_asc" />
                         <asp:ListItem Text="Price: High to Low" Value="price_desc" />
-                        <asp:ListItem Text="Name A–Z"           Value="name_asc" />
+                        <asp:ListItem Text="Name A–Z" Value="name_asc" />
                     </asp:DropDownList>
                 </div>
 
                 <!-- Filter / Reset buttons -->
                 <div class="space-y-2">
-                    <asp:Button ID="btnFilter" runat="server" Text="Apply Filters"
+                    <asp:LinkButton ID="btnFilter" runat="server" Text="Apply Filters"
                         OnClick="btnFilter_Click"
                         CssClass="w-full bg-forest hover:bg-forest-dark text-white 
                                   font-medium py-2.5 rounded-xl cursor-pointer 
-                                  transition-colors text-sm" />
-                    <asp:Button ID="btnReset" runat="server" Text="Clear Filters"
+                                  transition-colors text-sm text-center inline-block" />
+                    <asp:LinkButton ID="btnReset" runat="server" Text="Clear Filters"
                         OnClick="btnReset_Click" CausesValidation="false"
                         CssClass="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 
                                   font-medium py-2.5 rounded-xl cursor-pointer 
-                                  transition-colors text-sm" />
+                                  transition-colors text-sm text-center inline-block" />
                 </div>
 
             </div>
@@ -118,7 +118,7 @@
         <div class="flex-1 min-w-0">
 
             <!-- Toolbar -->
-            <div class="flex items-center justify-between mb-6">
+            <%--<div class="flex items-center justify-between mb-6">
                 <p class="text-sm text-gray-500">
                     <span class="font-semibold text-gray-800">
                         <asp:Literal ID="litCount" runat="server" />
@@ -137,29 +137,67 @@
                         <asp:ListItem Text="48" Value="48" />
                     </asp:DropDownList>
                 </div>
-            </div>
+            </div>--%>
 
             <!-- DataList Grid -->
-            <asp:DataList ID="dlProducts" runat="server"
-                RepeatColumns="3"
-                RepeatDirection="Horizontal"
-                RepeatLayout="Flow"
-                CssClass="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
-                ItemStyle-CssClass="contents">
+            <%-- Remove the entire asp:DataList block and replace with this --%>
 
+            <!-- Results count + page size -->
+            <div class="flex items-center justify-between mb-4">
+                <p class="text-sm text-gray-500">
+                    Showing
+                    <span class="font-medium text-gray-700">
+                        <asp:Literal ID="litFrom" runat="server" />–<asp:Literal ID="litTo" runat="server" />
+                    </span>
+                    of
+                    <span class="font-medium text-gray-700">
+                        <asp:Literal ID="litCount" runat="server" />
+                    </span>
+                    products
+                </p>
+                <div class="flex items-center gap-2 text-sm text-gray-500">
+                    <label>Per page:</label>
+                    <asp:DropDownList ID="ddlPageSize" runat="server"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlPageSize_Changed"
+                        CssClass="border border-gray-300 rounded-md px-2 py-1 text-sm bg-white">
+                        <asp:ListItem Text="12" Value="12" Selected="True" />
+                        <asp:ListItem Text="24" Value="24" />
+                        <asp:ListItem Text="48" Value="48" />
+                    </asp:DropDownList>
+                </div>
+            </div>
+
+            <%-- Empty state panel - shown when no products found --%>
+            <asp:Panel ID="Panel1" runat="server" Visible="false"
+                CssClass="text-center py-20 bg-white rounded-2xl border border-sage/20">
+                <div class="text-5xl mb-4">🔍</div>
+                <h3 class="font-display text-xl font-semibold text-gray-600 mb-2">
+                    No products found
+                </h3>
+                <p class="text-gray-400 text-sm">
+                    Try adjusting your filters or search term.
+                </p>
+            </asp:Panel>
+
+            <%-- Product grid using Repeater - clean markup, no wrapper elements --%>
+            <asp:Repeater ID="rptProducts" runat="server"
+                OnItemCommand="rptProducts_ItemCommand">
+                <HeaderTemplate>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                </HeaderTemplate>
                 <ItemTemplate>
-                    <div class="bg-white rounded-2xl overflow-hidden 
-                                border border-sage/20 product-card-hover group flex flex-col">
+                    <div class="bg-white rounded-2xl overflow-hidden border border-sage/20
+                                product-card-hover group flex flex-col">
 
-                        <!-- Image -->
-                        <div class="relative h-52 bg-sage/10 overflow-hidden">
+                        <%-- Image --%>
+                        <div class="relative h-52 bg-sage/10 overflow-hidden flex-shrink-0">
                             <asp:Image ID="imgProd" runat="server"
                                 ImageUrl='<%# ViewHelpers.GetImageUrl(Eval("ImageUrl")) %>'
-                                AlternateText='<%# Eval("Name") %>'
-                                CssClass="w-full h-full object-cover 
-                                          group-hover:scale-105 transition-transform duration-500" />
+                                AlternateText='<%# Eval("Name").ToString() %>'
+                                CssClass="w-full h-full object-cover group-hover:scale-105
+                                          transition-transform duration-500" />
 
-                            <%-- PassThrough renders raw HTML from the helper --%>
                             <asp:Literal ID="litFeatured" runat="server"
                                 Text='<%# ViewHelpers.GetFeaturedBadge(Eval("IsFeatured")) %>'
                                 Mode="PassThrough" />
@@ -169,19 +207,20 @@
                                 Mode="PassThrough" />
                         </div>
 
-                        <!-- Body -->
+                        <%-- Body --%>
                         <div class="p-5 flex flex-col flex-1">
                             <p class="text-xs text-gray-400 mb-1"><%# Eval("CategoryName") %></p>
-                            <h3 class="font-display font-semibold text-gray-800 
-                                       text-lg leading-tight mb-auto">
+                            <h3 class="font-display font-semibold text-gray-800 text-lg
+                                       leading-tight mb-2">
                                 <%# Eval("Name") %>
                             </h3>
-                            <p class="text-gray-400 text-xs mt-2 mb-4 line-clamp-2">
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1
+                                      line-clamp-2">
                                 <%# Eval("Description") %>
                             </p>
 
-                            <div class="flex items-center justify-between mt-auto pt-4 
-                                        border-t border-gray-100">
+                            <div class="flex items-end justify-between pt-3
+                                        border-t border-gray-100 mt-auto">
                                 <div>
                                     <p class="text-xl font-bold text-forest">
                                         $<%# Eval("Price", "{0:F2}") %>
@@ -189,17 +228,20 @@
                                     <p class="text-xs text-gray-400"><%# Eval("Unit") %></p>
                                 </div>
                                 <a href='<%# "ProductDetail.aspx?id=" + Eval("ProductId") %>'
-                                   class="bg-forest text-white text-sm font-medium 
-                                          px-4 py-2 rounded-xl hover:bg-forest-dark 
-                                          transition-colors btn-lift">
+                                   class="bg-forest text-white text-sm font-medium
+                                          px-4 py-2 rounded-xl hover:bg-forest-dark
+                                          transition-colors">
                                     View Details
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </ItemTemplate>
-
-            </asp:DataList>
+                <FooterTemplate>
+                    </div>
+                </FooterTemplate>
+            </asp:Repeater>
 
             <%-- Empty state shown from code-behind when no results --%>
             <asp:Panel ID="pnlEmpty" runat="server" Visible="false"
@@ -235,5 +277,14 @@
         </div>
     </div>
 </div>
-
+<!-- Add this script at the end of the content -->
+<script>
+    // Submit search when Enter key is pressed in the search box
+    document.getElementById('<%= txtSearch.ClientID %>').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            document.getElementById('<%= btnFilter.ClientID %>').click();
+        }
+    });
+</script>
 </asp:Content>

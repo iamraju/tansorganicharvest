@@ -83,6 +83,16 @@ namespace TansOrganicHarvest.Members
                 "SELECT ISNULL(SUM(Quantity),0) FROM Cart WHERE UserId = @uid",
                 new[] { new SqlParameter("@uid", userId) });
             litCartItems.Text = cart != null ? cart.ToString() : "0";
+
+            // Loyalty points
+            object points = DatabaseHelper.ExecuteScalar(
+                @"SELECT ISNULL(SUM(PointsEarned) - SUM(PointsRedeemed), 0)
+                  FROM LoyaltyPoints WHERE UserId = @uid",
+                            new[] { new SqlParameter("@uid", userId) });
+
+            int availablePoints = points != null ? Convert.ToInt32(points) : 0;
+            litPoints.Text = availablePoints.ToString();
+            litPointsValue.Text = (availablePoints / 100m).ToString("F2");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

@@ -216,6 +216,7 @@
     <Content Include="Admin\Products.aspx" />
     <Content Include="Admin\Profile.aspx" />
     <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\Subscriptions.aspx" />
     <Content Include="Admin\TestDB.aspx" />
     <Content Include="App_Data\TansDB.mdf" />
     <Content Include="App_Data\TansDB_log.ldf">
@@ -246,10 +247,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Members\ChangePassword.aspx" />
+    <Content Include="Members\Controls\MemberSidebar.aspx" />
     <Content Include="Members\EsewaFailure.aspx" />
     <Content Include="Members\EsewaPayment.aspx" />
     <Content Include="Members\EsewaSuccess.aspx" />
+    <Content Include="Members\OrderDetails.aspx" />
     <Content Include="Members\Profile.aspx" />
+    <Content Include="Members\Subscriptions.aspx" />
     <Content Include="ProduceBoxes.aspx" />
     <Content Include="ReadMe.html" />
     <Content Include="Members\Cart.aspx" />
@@ -534,6 +538,13 @@
     <Compile Include="Admin\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Subscriptions.aspx.cs">
+      <DependentUpon>Subscriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Subscriptions.aspx.designer.cs">
+      <DependentUpon>Subscriptions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\TestDB.aspx.cs">
       <DependentUpon>TestDB.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -636,6 +647,13 @@
     <Compile Include="Members\Checkout.aspx.designer.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Members\Controls\MemberSidebar.aspx.cs">
+      <DependentUpon>MemberSidebar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Controls\MemberSidebar.aspx.designer.cs">
+      <DependentUpon>MemberSidebar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Members\EsewaFailure.aspx.cs">
       <DependentUpon>EsewaFailure.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -664,6 +682,13 @@
     <Compile Include="Members\OrderConfirmation.aspx.designer.cs">
       <DependentUpon>OrderConfirmation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Members\OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Members\OrderHistory.aspx.cs">
       <DependentUpon>OrderHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -677,6 +702,13 @@
     </Compile>
     <Compile Include="Members\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Subscriptions.aspx.cs">
+      <DependentUpon>Subscriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Subscriptions.aspx.designer.cs">
+      <DependentUpon>Subscriptions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ProduceBoxes.aspx.cs">

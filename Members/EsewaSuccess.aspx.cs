@@ -93,6 +93,12 @@ namespace TansOrganicHarvest.Members
             int paymentId = (int)dt.Rows[0]["PaymentId"];
             int orderId = (int)dt.Rows[0]["OrderId"];
 
+            // Add this after fetching orderId from Payments table
+            object userIdObj = DatabaseHelper.ExecuteScalar(
+                "SELECT UserId FROM Orders WHERE OrderId = @id",
+                new[] { new SqlParameter("@id", orderId) });
+            string userId = userIdObj != null ? userIdObj.ToString() : "";
+
             // Step 6: Update the Payment record to Completed
             DatabaseHelper.ExecuteNonQuery(
                 @"UPDATE Payments SET
@@ -117,7 +123,25 @@ namespace TansOrganicHarvest.Members
                   WHERE OrderId = @id",
                 new[] { new SqlParameter("@id", orderId) });
 
-            // Step 8: Show success
+            // Step 8: Award points for eSewa payment
+            int points = (int)Math.Floor(totalAmount);
+            if (points > 0)
+            {
+                DatabaseHelper.ExecuteNonQuery(
+                    @"INSERT INTO LoyaltyPoints
+                    (UserId, OrderId, PointsEarned, Description, CreatedBy)
+                  VALUES (@uid, @oid, @pts, @desc, @by)",
+                            new[]
+                            {
+                    new SqlParameter("@uid",  userId),
+                    new SqlParameter("@oid",  orderId),
+                    new SqlParameter("@pts",  points),
+                    new SqlParameter("@desc", "Points earned on order #" + orderId),
+                    new SqlParameter("@by",   "system")
+                            });
+                    }
+
+            // Step 9: Show success
             pnlVerifying.Visible = false;
             pnlSuccess.Visible = true;
             litTxnCode.Text = callbackData.transaction_code;

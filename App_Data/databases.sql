@@ -1,3 +1,41 @@
+﻿-- ── Subscriptions ─────────────────────────────────────────────────
+--CREATE TABLE Subscriptions (
+--    SubscriptionId  INT IDENTITY(1,1) PRIMARY KEY,
+--    UserId          NVARCHAR(128) NOT NULL,
+--    BoxId           INT NOT NULL FOREIGN KEY REFERENCES ProduceBoxes(BoxId),
+--    Frequency       NVARCHAR(20) NOT NULL,  -- Weekly / Fortnightly / Monthly
+--    StartDate       DATE NOT NULL,
+--    NextDelivery    DATE NOT NULL,
+--    Status          NVARCHAR(20) DEFAULT 'Active', -- Active / Paused / Cancelled
+--    Notes           NVARCHAR(500),
+--    CreatedAt       DATETIME DEFAULT GETDATE(),
+--    CreatedBy       NVARCHAR(128),
+--    UpdatedAt       DATETIME,
+--    UpdatedBy       NVARCHAR(128)
+--);
+
+-- ── Loyalty Points ────────────────────────────────────────────────
+--CREATE TABLE LoyaltyPoints (
+--    PointId         INT IDENTITY(1,1) PRIMARY KEY,
+--    UserId          NVARCHAR(128) NOT NULL,
+--    OrderId         INT FOREIGN KEY REFERENCES Orders(OrderId),
+--    PointsEarned    INT DEFAULT 0,
+--    PointsRedeemed  INT DEFAULT 0,
+--    Description     NVARCHAR(200),
+--    CreatedAt       DATETIME DEFAULT GETDATE(),
+--    CreatedBy       NVARCHAR(128)
+--);
+
+-- ── View: total points per user (makes queries easy) ──────────────
+--CREATE VIEW vw_MemberPoints AS
+--SELECT
+--    UserId,
+--    SUM(PointsEarned)   AS TotalEarned,
+--    SUM(PointsRedeemed) AS TotalRedeemed,
+--    SUM(PointsEarned) - SUM(PointsRedeemed) AS AvailablePoints
+--FROM LoyaltyPoints
+--GROUP BY UserId;
+
 -- ============================================
 -- ESEWA
 -- ============================================
@@ -56,7 +94,7 @@
 --('How fresh is the produce?',           'Harvested within 24-48 hours of your delivery.',             5, 'system'),
 --('Can I pick up my order?',             'Farm pickup available Tuesday to Saturday, 8am to 1pm.',     6, 'system');
 
--- Admin user (password: Admin@123 � change before submission)
+-- Admin user (password: Admin@123 — change before submission)
 -- Password hash below is SHA256 of "Admin@123" for demo purposes
 -- In production use proper hashing (we will implement this in code)
 --INSERT INTO AdminUsers (Username, PasswordHash, FullName, Email, CreatedBy) VALUES('admin', 'Admin@123', 'System Administrator', 'admin@tansorganic.com', 'system');

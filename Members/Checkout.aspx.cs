@@ -238,6 +238,9 @@ namespace TansOrganicHarvest.Members
                 new SqlParameter("@by",      User.Identity.Name)
                     });
 
+                // After creating payment record, before redirect:
+                AwardLoyaltyPoints(userId, newOrderId, total);
+
                 Response.Redirect("~/Members/OrderConfirmation.aspx?id=" + newOrderId);
             }
             catch (Exception ex)
@@ -245,6 +248,26 @@ namespace TansOrganicHarvest.Members
                 pnlError.Visible = true;
                 litError.Text = "Error placing order: " + ex.Message;
             }
+        }
+
+        // ── Award loyalty points (1 point per $1 spent) ───────────────
+        private void AwardLoyaltyPoints(string userId, int orderId, decimal amount)
+        {
+            int points = (int)Math.Floor(amount); // 1 point per $1
+            if (points <= 0) return;
+
+            DatabaseHelper.ExecuteNonQuery(
+                @"INSERT INTO LoyaltyPoints
+            (UserId, OrderId, PointsEarned, Description, CreatedBy)
+          VALUES (@uid, @oid, @pts, @desc, @by)",
+                new[]
+                {
+            new SqlParameter("@uid",  userId),
+            new SqlParameter("@oid",  orderId),
+            new SqlParameter("@pts",  points),
+            new SqlParameter("@desc", "Points earned on order #" + orderId),
+            new SqlParameter("@by",   User.Identity.Name)
+                });
         }
 
         /// <summary>

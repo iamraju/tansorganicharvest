@@ -61,6 +61,11 @@
                               text-gray-600 hover:bg-gray-50 text-sm transition-colors">
                         📋 My Orders
                     </a>
+                    <a href="/Members/Subscriptions.aspx"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl
+                              text-gray-600 hover:bg-gray-50 text-sm transition-colors">
+                        📦 My Subscriptions
+                    </a>
                     <a href="/Members/Cart.aspx"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-xl 
                               text-gray-600 hover:bg-gray-50 text-sm transition-colors">
@@ -185,6 +190,15 @@
                         <asp:Literal ID="litCartItems" runat="server" />
                     </p>
                     <p class="text-xs text-gray-400 mt-1">In Cart</p>
+                </div>
+
+                <!-- Add as 4th stat card -->
+                <div class="bg-white rounded-2xl border border-sage/20 shadow-sm p-5 text-center">
+                    <p class="font-display text-3xl font-bold text-forest">
+                        <asp:Literal ID="litPoints" runat="server" Text="0" />
+                    </p>
+                    <p class="text-xs text-gray-400 mt-1">Loyalty Points</p>
+                    <p class="text-xs text-green-600 mt-1">= $<asp:Literal ID="litPointsValue" runat="server" Text="0.00" /></p>
                 </div>
             </div>
         </div>

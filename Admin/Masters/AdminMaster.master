@@ -151,7 +151,14 @@
             <!-- People Section -->
             <p class="text-xs text-gray-400 uppercase tracking-widest 
                       px-3 pt-4 pb-1 font-semibold">People</p>
-
+            
+            <a href="/Admin/Subscriptions.aspx"
+               class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f]
+                      transition-colors text-sm">
+                <span class="text-lg">📦</span> Subscriptions
+            </a>
+            
             <a href="/Admin/Customers.aspx"
                class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg 
                       text-gray-600 hover:bg-green-50 hover:text-[#2d6a4f] 
