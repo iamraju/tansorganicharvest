@@ -757,6 +757,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Database\" />
     <Folder Include="Images\banners\" />
     <Folder Include="Images\categories\" />
     <Folder Include="Images\products\" />
