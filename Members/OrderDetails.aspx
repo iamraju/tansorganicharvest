@@ -27,7 +27,7 @@
 
         <!-- Left: Sidebar -->
         <div class="space-y-4 sidebar-print-hide">
-            <uc:MemberSidebar ID="MemberSidebar1" runat="server" />
+            <%--<uc:MemberSidebar ID="MemberSidebar1" runat="server" />--%>
         </div>
 
         <!-- Right: Order Details -->
